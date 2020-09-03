@@ -10,10 +10,11 @@ license = "MPL-2.0"
 edition = "2018"
 
 [dependencies]
-js-sys = "0.3"
 yew = "0.17"
+crypto-brainfuck = "0.2"
 
 [dev-dependencies]
+
 
 [features]
 default = []

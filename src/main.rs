@@ -1,67 +1,35 @@
-use js_sys::Date;
-use yew::services::ConsoleService;
+#![recursion_limit = "1024"]
+
+mod decode;
+mod encode;
+mod header;
+
 use yew::{html, Component, ComponentLink, Html, ShouldRender};
 
-pub enum Msg {
-    Increment,
-    Decrement,
-}
-
-pub struct Model {
-    link: ComponentLink<Self>,
-    value: i64,
-}
+pub struct Model {}
 
 impl Component for Model {
-    type Message = Msg;
+    type Message = ();
     type Properties = ();
 
-    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, value: 0 }
+    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        Self {}
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        match msg {
-            Msg::Increment => {
-                self.value += 1;
-                ConsoleService::log("plus one");
-                true
-            }
-            Msg::Decrement => {
-                self.value -= 1;
-                ConsoleService::log("minus one");
-                true
-            }
-        }
+    fn update(&mut self, _: Self::Message) -> ShouldRender {
+        false
     }
 
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+    fn change(&mut self, _: Self::Properties) -> ShouldRender {
         false
     }
 
     fn view(&self) -> Html {
         html! {
-            <div>
-                <nav class="menu">
-                    <button onclick=self.link.callback(|_| Msg::Increment)>
-                        { "Increment" }
-                    </button>
-                    <button onclick=self.link.callback(|_| Msg::Decrement)>
-                        { "Decrement" }
-                    </button>
-                    <button onclick=self.link.batch_callback(|_| vec![Msg::Increment, Msg::Increment])>
-                        { "Increment Twice" }
-                    </button>
-                </nav>
-                <p>
-                    <b>{ "Current value: " }</b>
-                    { self.value }
-                </p>
-                <p>
-                    <b>{ "Rendered at: " }</b>
-                    { String::from(Date::new_0().to_string()) }
-                </p>
-            </div>
+            <>
+                {header::view()}
+                <header::Encoder/>
+            </>
         }
     }
 }
