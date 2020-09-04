@@ -1,4 +1,4 @@
-pub use crate::encode::Encoder;
+pub use crate::{decode::Decoder, encode::Encoder};
 use yew::{html, Html};
 pub fn view() -> Html {
     let title = "Brainfuck Encoder/Decoder";

@@ -27,11 +27,12 @@ jobs:
           key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
           restore-keys: |
             cargo-${{ runner.os }}-
-      - name: Install trunk
+      - name: Install trunk 🗝
         run: |
           brew install trunk
+          trunk -V
           cargo install wasm-bindgen-cli
-      - name: Build examples
+      - name: Build website 💣
         run: |
           trunk build --release
       - name: Deploy 🚀

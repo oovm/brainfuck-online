@@ -60,12 +60,14 @@ impl Component for Encoder {
         <div class="button-group">
             <button
             class="button danger"
+            onclick=self.link.callback(|_| Event::Clean)
             >
                 {crate::header::svg_trash()}
                 <span>{"Clear"}</span>
                 </button>
             <button
             class="button"
+            onclick=self.link.callback(|_| Event::Copy)
             >
                 {crate::header::svg_clipboard()}
                 <span>{"Copy"}</span>
