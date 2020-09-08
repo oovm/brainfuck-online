@@ -5,13 +5,17 @@ Brainfuck Encoder/Decoder
 
 Search the brainfuck representation of a piece of text, algorithm complexity is O(n).
 
-It’s a pity that it’s not real-time, sometimes feels stuck, it takes about 50ms
+It’s a pity that it is not real-time, sometimes feels stuck, it takes about 100ms
 
-It is faster and shorter than the following implementations:
+It's faster and shorter than the following implementations:
 
 - https://www.dcode.fr/brainfuck-language
 
 - https://www.splitbrain.org/services/ook
+
+It's shorter than the following implementations:
+
+- https://copy.sh/brainfuck/text.html
 
 ## Decoder
 

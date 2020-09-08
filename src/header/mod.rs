@@ -1,5 +1,6 @@
 pub use crate::{decode::Decoder, encode::Encoder};
-use yew::{html, Html};
+use yew::{html, prelude::*, Component, ComponentLink, Html, ShouldRender};
+
 pub fn view() -> Html {
     let title = "Brainfuck Encoder/Decoder";
     html! {
@@ -33,5 +34,53 @@ pub fn svg_clipboard() -> Html {
         >
         </path>
     </svg>
+    }
+}
+
+
+
+pub enum Event {
+    SwitchTo(usize),
+}
+
+pub struct TabSwitch {
+    link: ComponentLink<Self>,
+    tabs: usize,
+}
+
+impl Component for TabSwitch {
+    type Message = Event;
+    type Properties = ();
+
+    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        Self { link, tabs: 0 }
+    }
+
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Event::SwitchTo(u) => {
+                self.tabs = u
+            }
+        }
+        true
+    }
+
+    fn change(&mut self, _: Self::Properties) -> ShouldRender {
+        false
+    }
+
+    fn view(&self) -> Html {
+
+        let c = match self.tabs {
+            0=> html! {
+                <Encoder/>
+            },
+            _ => html! {
+                <Decoder/>
+            }
+        };
+        html! {
+            {c}
+        }
     }
 }

@@ -1,5 +1,5 @@
 use crypto_brainfuck::decode;
-use yew::{html, prelude::*, services::ConsoleService, Component, ComponentLink, Html, ShouldRender};
+use yew::{html, prelude::*, Component, ComponentLink, Html, ShouldRender};
 
 pub enum Event {
     Input(String),

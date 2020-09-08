@@ -30,10 +30,11 @@ jobs:
       - name: Install trunk 🗝
         run: |
           brew install trunk
-          trunk -V
           cargo install wasm-bindgen-cli
       - name: Build website 💣
         run: |
+          wasm-bindgen -V
+          trunk -V
           trunk build --release
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1

@@ -1,5 +1,5 @@
 use crypto_brainfuck::encode;
-use yew::{html, prelude::*, services::ConsoleService, Component, ComponentLink, Html, ShouldRender};
+use yew::{html, prelude::*,  Component, ComponentLink, Html, ShouldRender};
 
 pub enum Event {
     Input(String),
@@ -10,6 +10,7 @@ pub enum Event {
 pub struct Encoder {
     link: ComponentLink<Self>,
     text: String,
+    output: String,
 }
 
 impl Component for Encoder {
@@ -17,13 +18,32 @@ impl Component for Encoder {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, text: String::new() }
+        Self { link, text: String::new(), output: String::new() }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Event::Input(text) => {
-                self.text = text;
+                if text.is_empty() {
+                    self.text = String::new();
+                    self.output = String::new();
+                } else {
+                    if let Some(c) = self.text.chars().last() {
+                        if c == text.chars().last().unwrap() {
+                            if text.len()> self.text.len() {
+                                self.text.push(c);
+                                self.output.push('.');
+                            }
+                            else {
+                                self.text.pop();
+                                self.output.pop();
+                            }
+                            return true
+                        }
+                    }
+                    self.text = text;
+                    self.output = encode(&self.text).replace('\n', "")
+                };
                 true
             }
             Event::Clean => {
@@ -49,11 +69,10 @@ impl Component for Encoder {
             ></textarea>
         </div>
         };
-        let out_text = if self.text.is_empty() { String::new() } else { encode(&self.text).replace('\n', "") };
         let output: Html = html! {
         <div class="form-group">
             <label class="form-label">{"Output Brainfuck Code"}</label>
-            <textarea readonly=true rows="10" value=&out_text></textarea>
+            <textarea readonly=true rows="10" value=&self.output></textarea>
         </div>
         };
         let bottoms: Html = html! {
