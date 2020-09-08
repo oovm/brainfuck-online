@@ -24,3 +24,8 @@ A brainfuck virtual machine without jit, allow overflow and negative index.
 Even if this is not very fast, it is faster than many js implementations.
 
 Notice that the output must be a valid utf8 string.
+
+## TODO
+
+- [ ] Short string length optimize
+- [ ] Long string speed optimize

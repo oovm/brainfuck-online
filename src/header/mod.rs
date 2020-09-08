@@ -1,12 +1,12 @@
 pub use crate::{decode::Decoder, encode::Encoder};
-use yew::{html, prelude::*, Component, ComponentLink, Html, ShouldRender};
+use yew::prelude::*;
 
 pub fn view() -> Html {
     let title = "Brainfuck Encoder/Decoder";
     html! {
     <header>
         <h1 color="#009688">{title}</h1>
-        <span title="This tool processes on the client side">{"Fork me!"}</span>
+        <a href="https://github.com/GalAster/brainfuck-online">{"Fork me!"}</a>
     </header>
     }
 }
@@ -37,8 +37,6 @@ pub fn svg_clipboard() -> Html {
     }
 }
 
-
-
 pub enum Event {
     SwitchTo(usize),
 }
@@ -58,9 +56,7 @@ impl Component for TabSwitch {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Event::SwitchTo(u) => {
-                self.tabs = u
-            }
+            Event::SwitchTo(u) => self.tabs = u,
         }
         true
     }
@@ -70,17 +66,32 @@ impl Component for TabSwitch {
     }
 
     fn view(&self) -> Html {
-
         let c = match self.tabs {
-            0=> html! {
+            0 => html! {
                 <Encoder/>
             },
             _ => html! {
                 <Decoder/>
-            }
+            },
         };
         html! {
+        <>
+            <div class="tab">
+                <button
+                    class="tab-links"
+                    onclick=self.link.callback(|_| Event::SwitchTo(0))
+                >
+                    {"Encoder"}
+                </button>
+                <button
+                    class="tab-links"
+                    onclick=self.link.callback(|_| Event::SwitchTo(1))
+                >
+                    {"Decoder"}
+                </button>
+            </div>
             {c}
+        </>
         }
     }
 }

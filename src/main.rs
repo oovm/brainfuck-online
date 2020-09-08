@@ -28,7 +28,7 @@ impl Component for Model {
         html! {
             <>
                 {header::view()}
-                <header::Encoder/>
+                <header::TabSwitch/>
             </>
         }
     }

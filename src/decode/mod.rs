@@ -41,33 +41,33 @@ impl Component for Decoder {
     fn view(&self) -> Html {
         let input: Html = html! {
         <div class="form-group">
-            <label class="form-label">{"Input String"}</label>
+            <label class="form-label">{"Input Brainfuck Code"}</label>
             <textarea
-            rows="10"
-            oninput=self.link.callback(|input: InputData| Event::Input(input.value))
-            value=&self.text
-            ></textarea>
+                rows="10"
+                oninput=self.link.callback(|input: InputData| Event::Input(input.value))
+                value=&self.text
+            />
         </div>
         };
         let out_text = if self.text.is_empty() { String::new() } else { decode(&self.text) };
         let output: Html = html! {
         <div class="form-group">
-            <label class="form-label">{"Output Brainfuck Code"}</label>
-            <textarea readonly=true rows="10" value=&out_text></textarea>
+            <label class="form-label">{"Output String"}</label>
+            <textarea readonly=true rows="10" value=&out_text/>
         </div>
         };
         let bottoms: Html = html! {
         <div class="button-group">
             <button
-            class="button danger"
-            onclick=self.link.callback(|_| Event::Clean)
+                class="button danger"
+                onclick=self.link.callback(|_| Event::Clean)
             >
                 {crate::header::svg_trash()}
                 <span>{"Clear"}</span>
-                </button>
+            </button>
             <button
-            class="button"
-            onclick=self.link.callback(|_| Event::Copy)
+                class="button"
+                onclick=self.link.callback(|_| Event::Copy)
             >
                 {crate::header::svg_clipboard()}
                 <span>{"Copy"}</span>
@@ -75,11 +75,10 @@ impl Component for Decoder {
         </div>
         };
         html! {
-            <div id="encoder">
-                        {bottoms}
+            <div id="decoder">
             {input}
             {output}
-
+            {bottoms}
             </div>
         }
     }

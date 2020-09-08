@@ -1,5 +1,5 @@
 use crypto_brainfuck::encode;
-use yew::{html, prelude::*,  Component, ComponentLink, Html, ShouldRender};
+use yew::{html, prelude::*, Component, ComponentLink, Html, ShouldRender};
 
 pub enum Event {
     Input(String),
@@ -27,27 +27,32 @@ impl Component for Encoder {
                 if text.is_empty() {
                     self.text = String::new();
                     self.output = String::new();
-                } else {
-                    if let Some(c) = self.text.chars().last() {
-                        if c == text.chars().last().unwrap() {
-                            if text.len()> self.text.len() {
-                                self.text.push(c);
-                                self.output.push('.');
-                            }
-                            else {
-                                self.text.pop();
-                                self.output.pop();
-                            }
-                            return true
-                        }
-                    }
+                }
+                else {
+                    // if let Some(c) = self.text.chars().last() {
+                    // if c == text.chars().last().unwrap() {
+                    // if text.len() - 1 == self.text.len() {
+                    // self.text.push(c);
+                    // self.output.push('.');
+                    // return true;
+                    // }
+                    // else if text.len() + 1 == self.text.len() {
+                    // self.text.pop();
+                    // self.output.pop();
+                    // return true;
+                    // }
+                    // }
+                    // }
                     self.text = text;
+                    // FixMe: Rendering is blocked here
+                    // TODO: use async encode
                     self.output = encode(&self.text).replace('\n', "")
                 };
                 true
             }
             Event::Clean => {
                 self.text = String::new();
+                self.output = String::new();
                 true
             }
             Event::Copy => false,
